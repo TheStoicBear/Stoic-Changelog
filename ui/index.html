@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- This is not needed to be changed. -->
+    <title>Changelog Page</title>
+
+
+<!-- This is where you would edit your styling. -->
+    <style>
+        body {
+            background: transparent;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            cursor: pointer; /* Enable cursor in NUI */
+        }
+        .custom-box {
+            background-color: #2f3136;
+            border-radius: 12px;
+            padding: 20px;
+            width: 700px;
+            max-height: 80vh;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            color: #ffffff;
+            position: relative;
+            overflow-y: auto;
+        }
+        .custom-box::-webkit-scrollbar {
+            width: 10px;
+        }
+        .custom-box::-webkit-scrollbar-thumb {
+            background-color: #4a4a4a; /* Adjust color as needed */
+            border-radius: 5px;
+        }
+        .custom-box::-webkit-scrollbar-track {
+            background-color: #2f3136; /* Adjust color as needed */
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo img {
+            width: 294px; /* Adjust the width as needed */
+            height: 206px; /* Adjust the height as needed */
+            border-radius: 50%;
+        }
+        .header {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+        .paragraph {
+            margin-bottom: 15px;
+        }
+        .divider {
+            border-bottom: 1px solid #ffffff;
+            margin-bottom: 15px;
+        }
+        .image {
+            width: 100%;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            color: #ffffff;
+            font-size: 16px;
+        }
+</style>
+<!-- This is where you would edit your styling. -->
+
+
+</head>
+<body>
+    <!-- This is where you would edit your data inside of the Changelog -->
+        <div class="custom-box">
+            <span class="close-button" onclick="display(false)">X</span>
+            <div class="logo">
+                <img src="https://media.discordapp.net/attachments/1192732113695424604/1192733837822787716/KSRP3.png?ex=65aa26f2&is=6597b1f2&hm=93a32f8bf58ccdb00f56151a92c814bc8eab0fb0e22c1c98cc6c3509b12f0fde&=&format=webp&quality=lossless&width=1253&height=879" alt="Logo">
+            </div>
+            <!-- This is a example of how to use a Header. -->
+            <div class="header">Lorem ipsum dolor sit amet.</div>
+
+            <!-- This is a example of how to use paragraphs. -->
+            <div class="paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
+
+            <!-- This is a example of how to use images. -->
+            <img class="image" src="https://cdn.discordapp.com/attachments/1182385820959784970/1193628619034071151/2515.png?ex=65ad6847&is=659af347&hm=7e9f612990170af7cc0c5380aabdc53762364da5488d4d33b878e016cbce3c20" alt="Custom Image">
+        </div>
+    <!-- This is where you would edit your data inside of the Changelog -->
+        <script>
+            function display(bool) {
+                if (bool) {
+                    $(".custom-box").fadeIn("slow");
+                } else {
+                    $(".custom-box").fadeOut("slow");
+                }
+            }
+            display(true);
+
+            window.addEventListener('message', function(event) {
+                var item = event.data;
+                if (item.type === "open") {
+                    display(item.status);
+                }
+            });
+
+            $(".close-button").click(function() {
+                $.post(`https://${GetParentResourceName()}/close`);
+            });
+
+            document.onkeyup = function(data) {
+                if (data.which == 27) {
+                    $.post(`https://${GetParentResourceName()}/close`);
+                }
+            };
+        </script>
+    </body>
+</html>
